@@ -1,0 +1,176 @@
+<?php
+
+	session_start();
+	if (isset($_SESSION["UsuarioNome"]) and $_SESSION["UsuarioNivel"] == 1 ) {
+		$usuario = $_SESSION["UsuarioNome"];
+	} else {
+		header("Location:../index.php");
+	}
+
+	include("../conecta.php");
+
+?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<title>Sistema de Auxílio à Orientação de TCC</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link rel="stylesheet" href="../estilo_pagina.css">
+</head>
+<body>
+
+	<!-- Barra de Navegação -->
+	<header >
+		<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">		
+			<a class="navbar-brand" href="#">
+				<img src="../imagens/logotipopng.png" width="20" height="30" alt="Logo IFfar"> Sistema de Auxílio à Orientação de TCC
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Alterna navegação">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavDropdown">
+				<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="#">Início <span class="sr-only">(Página atual)</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="../Cronograma/CronogramaP.php">Cronograma</a>
+				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" href="../Documentos/DocumentosP.php">Documentos</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Outros</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						<a class="dropdown-item" href="Vaga_orientar/formcadastrar_vaga.php">Vagas para orientação</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="lista_orientando.php">Lista de orientandos</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="lista_banca.php">Banca examinadora</a>
+					</div>
+				</li>
+				</ul>
+				
+
+					<li class="navbar-nav nav-item dropdown ">
+					<a class="nav-link dropdown-toggle" href="#" id="dropConf" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Configurações<!--<img src="../imagens/config.png" width="30" height="30" alt="Logo IFfar"> li-> dropleft-->
+					</a>
+						<div class="dropdown-menu" aria-labelledby="dropConf">
+								<a class="dropdown-item" href="GerenPerfil_P.php">Perfil do usuário</a>
+								<div class="dropdown-divider"></div>
+							    <a class="dropdown-item" href="../sobre_nosP.php">Sobre</a>
+						</div>
+					</li>
+                    <a class="nav-link" href="../Login/sair.php" >
+						<button class="btn btn-outline-danger btn-sm my-2 my-sm-0" type="button">
+							Sair
+						</button>
+					</a>
+
+			</div>
+		</nav>
+    </header>
+	
+	<!-- Carousel -->
+	<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+	  <ol class="carousel-indicators">
+	    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+	    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+	    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+	  </ol>
+	  <div class="carousel-inner">
+	    <div class="carousel-item active">
+	      <img class="d-block w-100" src="../imagens/carosel1.png" alt="Primeiro Slide" >
+	    </div>
+	    <div class="carousel-item">
+		  <img class="d-block w-100" src="../imagens/carosel2.png" alt="Segundo Slide" >
+		  <div class="container ">
+				<div class="carousel-caption text-left text-muted my-2 mb-5">
+					<h1>Vagas para orientação</h1>
+					<p>Edite seu nº de vagas de orientandos.</p>
+					<p><a class="btn btn-lg btn-primary" href="Vaga_orientar/formcadastrar_vaga.php" role="button">Acesse</a></p>
+				</div>
+            </div>
+	    </div>
+	    <div class="carousel-item">
+	      <img class="d-block w-100" src="../imagens/carosel3.png" alt="Terceiro Slide" >
+	    </div>
+	  </div>
+	  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+	    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+	    <span class="sr-only">Anterior</span>
+	  </a>
+	  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+	    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+	    <span class="sr-only">Próximo</span>
+	  </a>
+	</div>
+
+	<!-- Container do Corpo do Página (Aluno) -->
+	<div class="container" id="container-corpo">
+		<div class="row mb-2"> 
+			<div class="col-md-6">
+			<div class="card flex-md-row mb-4 shadow-sm h-md-250">
+				<div class="card-body d-flex flex-column align-items-start">
+				<strong class="d-inline-block mb-2 text-primary">Cronograma</strong>
+				<h3 class="mb-0">
+					<a class="text-dark" href="#">Atividades e prazos</a>
+				</h3>
+				<br>
+				<p class="card-text mb-auto">Confira o cronograma com as atividades e prazos do TCC.<br> Atenção com os prazos de entrega.</p><br>
+				<a href="../Cronograma/CronogramaP.php"><button type="button" class="btn btn-outline-primary  ">
+                    Acessar
+                  </button></a>
+				</div>
+				<img class="card-img-right flex-auto d-none d-lg-block" src="../imagens/calendario.png" alt="Card image cap">
+			</div>
+			</div>
+			<div class="col-md-6">
+			<div class="card flex-md-row mb-4 shadow-sm h-md-250">
+				<div class="card-body d-flex flex-column align-items-start">
+				<strong class="d-inline-block mb-2 text-success">Documentos</strong>
+				<h3 class="mb-0">
+					<a class="text-dark" href="#">Anexos</a>
+				</h3>
+				<br>
+				<p class="card-text mb-auto">Acesse os documentos para encontrar formulários, anexos, regulamento e TCCs dos anos anteriores. Importante!!</p><br>
+				<a href="../Documentos/DocumentosP.php"><button type="button" class="btn btn-outline-success  ">
+                    Acessar
+                  </button></a>
+				</div>
+				<img class="card-img-right flex-auto d-none d-lg-block" src="../imagens/documento.png" alt="Card image cap">
+			</div>
+			</div>
+		</div>
+	</div>	
+
+	<!-- Containers Footer -->
+	<div class="container mt-5 pt-5 ">
+	<hr class="mb-4 ">
+       
+        <footer>
+    	
+		<div class="row mb-4">
+            <div class="col lg-10 md-10 sm-10  text-center pt-3">
+              
+                  <p class="text-secondary">&copy; Copyright 2020 - Sistema de Auxílio à Orientação de TCC | Desenvolvido por Sabrina Rodrigues Fernandes</p>
+            </div>
+            <div class="lg-2 md-2 sm-2 text-right pt-3">
+      
+                  <a href="PaginaInicial_Professor.php">Voltar ao Início</a>
+            </div>   
+        </div>    
+        </footer>
+        
+    </div>
+	
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+</html>

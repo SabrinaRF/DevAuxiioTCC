@@ -1,0 +1,24 @@
+#container-corpo{
+    margin-top: 150px;
+
+}
+h1{
+    font-size: 35px;
+    margin-block-end: 20px;
+}
+.text-muted{
+    font-size: 20px;
+}
+.text-small{
+    color: #5a5a5a;
+    font-size: 15px;
+}
+.caixa_texto{
+    border-style: hidden;
+    width: 100%;
+    background: #f7f4f4;
+    padding-top: 10px;
+    border-bottom-style: solid;
+    border-bottom-color: #5a5a5a;
+}
+   
